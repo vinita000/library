@@ -1,0 +1,120 @@
+<h4>Employe New Leaves List</h4>
+<style>
+.zui-table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+.zui-table thead th {
+    background-color: #DDEFEF;
+    border: solid 1px #DDEEEE;
+    color: #336B6B;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #fff;
+}
+.zui-table tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;th
+    text-shadow: 1px 1px 1px #fff;
+}
+.approve {
+    padding: 9px 8px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    width: 85%;
+    border: none;
+    background: #fb641b;
+    color: #fff;
+    font-size: 11px;
+}
+.decline {
+    padding: 9px 8px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    width: 85%;
+    border: none;
+    background: #ff0000;
+    color: #fff;
+    font-size: 11px;
+}
+</style>
+<% if @new_books.blank? %>
+  <p>No new Student Books to show</p>
+<%else%>
+
+    <table class="zui-table">
+      <thead>
+        <tr >
+          <th >Student Id</th>
+          <th>Book Taken From</th>
+          <th>Book Taken To</th>
+          <th>Book Status</th>
+          <th>Comment</th>
+          <th >Student Books Approval</th>
+          <th >Student Books Declienation</th>
+          
+        </tr>
+      </thead>
+      <tbody >
+        <% unless @new_books.blank?
+          @new_books.each do |as| %>
+            <tr>
+             <td class="first"><%= as.user_id %></td>
+              <td ><%= as.book_from %></td>
+              <td ><%= as.book_to %></td>
+              <td ><%= as.status %></td>
+              <td ><%= as.comment %></td>
+              <td ><%= button_tag "Approve", 
+                   onclick: "approveEmpLeaves(this)" ,
+                   class: "approve"
+                    %>
+               </td>
+               <td ><%= button_tag "Decline", 
+                   onclick: "declineEmpLeaves(this)" ,
+                   class: "decline"
+                    %>
+               </td>
+            </tr>
+          <% end
+        end %>
+      </tbody>
+    </table>
+    <% end %>
+    <script>
+    function approveStuBooks(e1){
+      var stu_id = e1.parentNode.parentNode.cells[0].textContent;
+      var applied_book_from = e1.parentNode.parentNode.cells[1].textContent;
+      var applied_book_to = e1.parentNode.parentNode.cells[2].textContent;
+      $.ajax({
+
+         url: "approve_students_books?id="+stu_id+"&book_from="+applied_book_from+"&book_to="+applied_book_to,
+
+         method: "POST",
+         contentType: "application/json",
+         success: function() {
+           
+        }
+
+       });        
+    }
+
+    function declineStuBooks(e1){
+      var stu_id = e1.parentNode.parentNode.cells[0].textContent;
+      var applied_book_from = e1.parentNode.parentNode.cells[1].textContent;
+      var applied_book_to = e1.parentNode.parentNode.cells[2].textContent;
+
+      $.ajax({
+
+         url: "decline_students_books?id="+stu_id+"&book_from="+applied_book_from+"&book_to="+applied_book_to,
+         method: "POST",
+         contentType: "application/json",
+         success: function() {
+           
+        }
+
+       });        
+    }
+    </script>

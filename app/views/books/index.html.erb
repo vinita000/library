@@ -1,0 +1,55 @@
+<style>
+.zui-table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+.zui-table thead th {
+    background-color: #DDEFEF;
+    border: solid 1px #DDEEEE;
+    color: #336B6B;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #fff;
+}
+.zui-table tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+}
+
+</style>
+<h4>Books List</h4>
+
+<% if @books.blank? %>
+        <p>you have not yet apply for any book </p>
+<%else%>       
+    <table class="zui-table">
+      <thead>
+      <tr>
+          <th >Student Id</th>
+          <th>Book Taken From</th>
+          <th>Book Taken To</th>
+          <th>Book Status</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody >
+      
+      
+        <% unless @books.blank?
+          @books.each do |ls| %>
+            <tr>
+            <td ><%= ls.user_id %></td>
+            <td ><%= ls.book_from %></td>
+            <td ><%= ls.book_to %></td>
+            <td ><%= ls.status %></td>
+            <td ><%= ls.comment %></td>
+            </tr> 
+          <% end
+        end %>
+      <% end %>
+      </tbody>
+    </table>

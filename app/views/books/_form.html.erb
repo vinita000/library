@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag 'new_leave', media: 'print, screen' %>
+
+<div class="pro_sell-2">
+<%= simple_form_for(Book.new) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+ 
+  <div style="display: flex;">
+
+     <div><%= f.input :book_from,
+     
+      required: true,
+      
+      label: false,
+      input_html: { class: "datepicker", id: "date_from", placeholder: "Select Date From", oninput: "getFromDate()" }%></div>
+      
+      <div> <%= f.input :book_to, 
+     
+      required: true,
+      
+      label: false,
+      input_html: { class: "datepicker", id: "date_to", placeholder: "Select Date to", oninput: "getDate()" }%></div>
+      <div><button type="button" class="btn-primary" onclick="checkDate()">Confirm</button> </div>
+      
+    
+      <div><%= f.input :image, as: :file, label: false, input_html: {multiple: false,style: "display:none",id: "img"}, class: "section1" %></div>
+        
+        
+        
+  
+                
+  
+    
+
+  </div>
+<div style="width: 25em !important; "><%= f.text_area :comment,
+                required: true,
+                label: false,
+                placeholder: "Comment",
+                input_html: {  class: "form-control comm" } %></div>
+  <%= f.button :submit, class: "btn-success" %>
+<% end %>
+</div>

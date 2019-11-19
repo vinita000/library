@@ -1,0 +1,83 @@
+<style>
+.zui-table {
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+.zui-table thead th {
+    background-color: #DDEFEF;
+    border: solid 1px #DDEEEE;
+    color: #336B6B;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #fff;
+}
+.zui-table tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+}
+.approve {
+    padding: 9px 8px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    width: 110%;
+    border: none;
+    float: left;
+    background: #fb641b;
+    color: #fff;
+    margin-left: 14em;
+    margin-top: -3.7em;
+    font-size: 10px;
+}
+.header_bck {
+    position: fixed;
+    top: 0;
+    margin-top: 3em !important;
+}
+.light-table-filter {
+    
+    
+    background-color: #ffffff;
+    border-color: white;
+    border-style: groove;
+}
+
+
+</style>
+
+<h4>All Students Books List</h4>
+
+
+    <table class="zui-table">
+      <thead>
+      <tr>
+          <th >Student Id</th>
+          <th>Book Taken From</th>
+          <th>Book Taken To</th>
+          <th>Book Status<select id='filterText'  class="light-table-filter" style='display:inline-block' onclick="Search()">
+          <option value='select'>Select a status</option>
+          <option value='onhold'>Onhold</option>
+          <option value='approved'>Approved</option>
+          <option value='declined' >Decliened</option>
+        </select></th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody >
+        
+        <% unless @all_students_bookss.blank?
+          @all_students_books.each do |as| %>
+            <tr>
+             <td ><%= as.user_id %></td>
+             <td ><%= as.book_from %></td>
+              <td ><%= as.book_to %></td>
+              <td ><%= as.status %></td>
+              <td ><%= as.comment %></td>
+            </tr> 
+          <% end
+        end %>
+      </tbody>
+    </table>
